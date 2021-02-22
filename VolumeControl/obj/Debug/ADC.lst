@@ -1,0 +1,1864 @@
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE  1
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SDCC : free open source ANSI-C Compiler
+                      00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
+                      00004 ; This file was generated Sat Aug 18 15:23:23 2018
+                      00005 ;--------------------------------------------------------
+                      00006 ; PIC port for the 14-bit core
+                      00007 ;--------------------------------------------------------
+                      00008         .file   "ADC.c"
+                      00009         list    p=16f877a
+                      00010         radix dec
+                      00011         include "p16f877a.inc"
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Aug 07 2014
+                      00005 ;  MPASM PIC16F877A processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2014 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      00567         LIST
+                      00012 ;--------------------------------------------------------
+                      00013 ; external declarations
+                      00014 ;--------------------------------------------------------
+  0000                00015         extern  _STATUSbits
+  0000                00016         extern  _PORTAbits
+  0000                00017         extern  _PORTBbits
+  0000                00018         extern  _PORTCbits
+  0000                00019         extern  _PORTDbits
+  0000                00020         extern  _PORTEbits
+  0000                00021         extern  _INTCONbits
+  0000                00022         extern  _PIR1bits
+  0000                00023         extern  _PIR2bits
+  0000                00024         extern  _T1CONbits
+  0000                00025         extern  _T2CONbits
+  0000                00026         extern  _SSPCONbits
+  0000                00027         extern  _CCP1CONbits
+  0000                00028         extern  _RCSTAbits
+  0000                00029         extern  _CCP2CONbits
+  0000                00030         extern  _ADCON0bits
+  0000                00031         extern  _OPTION_REGbits
+  0000                00032         extern  _TRISAbits
+  0000                00033         extern  _TRISBbits
+  0000                00034         extern  _TRISCbits
+  0000                00035         extern  _TRISDbits
+  0000                00036         extern  _TRISEbits
+  0000                00037         extern  _PIE1bits
+  0000                00038         extern  _PIE2bits
+  0000                00039         extern  _PCONbits
+  0000                00040         extern  _SSPCON2bits
+  0000                00041         extern  _SSPSTATbits
+  0000                00042         extern  _TXSTAbits
+  0000                00043         extern  _CMCONbits
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE  2
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+  0000                00044         extern  _CVRCONbits
+  0000                00045         extern  _ADCON1bits
+  0000                00046         extern  _EECON1bits
+  0000                00047         extern  _INDF
+  0000                00048         extern  _TMR0
+  0000                00049         extern  _PCL
+  0000                00050         extern  _STATUS
+  0000                00051         extern  _FSR
+  0000                00052         extern  _PORTA
+  0000                00053         extern  _PORTB
+  0000                00054         extern  _PORTC
+  0000                00055         extern  _PORTD
+  0000                00056         extern  _PORTE
+  0000                00057         extern  _PCLATH
+  0000                00058         extern  _INTCON
+  0000                00059         extern  _PIR1
+  0000                00060         extern  _PIR2
+  0000                00061         extern  _TMR1
+  0000                00062         extern  _TMR1L
+  0000                00063         extern  _TMR1H
+  0000                00064         extern  _T1CON
+  0000                00065         extern  _TMR2
+  0000                00066         extern  _T2CON
+  0000                00067         extern  _SSPBUF
+  0000                00068         extern  _SSPCON
+  0000                00069         extern  _CCPR1
+  0000                00070         extern  _CCPR1L
+  0000                00071         extern  _CCPR1H
+  0000                00072         extern  _CCP1CON
+  0000                00073         extern  _RCSTA
+  0000                00074         extern  _TXREG
+  0000                00075         extern  _RCREG
+  0000                00076         extern  _CCPR2
+  0000                00077         extern  _CCPR2L
+  0000                00078         extern  _CCPR2H
+  0000                00079         extern  _CCP2CON
+  0000                00080         extern  _ADRESH
+  0000                00081         extern  _ADCON0
+  0000                00082         extern  _OPTION_REG
+  0000                00083         extern  _TRISA
+  0000                00084         extern  _TRISB
+  0000                00085         extern  _TRISC
+  0000                00086         extern  _TRISD
+  0000                00087         extern  _TRISE
+  0000                00088         extern  _PIE1
+  0000                00089         extern  _PIE2
+  0000                00090         extern  _PCON
+  0000                00091         extern  _SSPCON2
+  0000                00092         extern  _PR2
+  0000                00093         extern  _SSPADD
+  0000                00094         extern  _SSPSTAT
+  0000                00095         extern  _TXSTA
+  0000                00096         extern  _SPBRG
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE  3
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+  0000                00097         extern  _CMCON
+  0000                00098         extern  _CVRCON
+  0000                00099         extern  _ADRESL
+  0000                00100         extern  _ADCON1
+  0000                00101         extern  _EEDATA
+  0000                00102         extern  _EEADR
+  0000                00103         extern  _EEDATH
+  0000                00104         extern  _EEADRH
+  0000                00105         extern  _EECON1
+  0000                00106         extern  _EECON2
+                      00107 
+  0000                00108         extern PSAVE
+  0000                00109         extern SSAVE
+  0000                00110         extern WSAVE
+  0000                00111         extern STK12
+  0000                00112         extern STK11
+  0000                00113         extern STK10
+  0000                00114         extern STK09
+  0000                00115         extern STK08
+  0000                00116         extern STK07
+  0000                00117         extern STK06
+  0000                00118         extern STK05
+  0000                00119         extern STK04
+  0000                00120         extern STK03
+  0000                00121         extern STK02
+  0000                00122         extern STK01
+  0000                00123         extern STK00
+                      00124 ;--------------------------------------------------------
+                      00125 ; global declarations
+                      00126 ;--------------------------------------------------------
+  0000                00127         global  _ADC_Convert
+  0000                00128         global  _ADC_Init
+                      00129 
+                      00130 ;--------------------------------------------------------
+                      00131 ; global definitions
+                      00132 ;--------------------------------------------------------
+                      00133 ;--------------------------------------------------------
+                      00134 ; absolute symbol definitions
+                      00135 ;--------------------------------------------------------
+                      00136 ;--------------------------------------------------------
+                      00137 ; compiler-defined variables
+                      00138 ;--------------------------------------------------------
+                      00139 UDL_ADC_0       udata
+0000                  00140 r0x1008 res     1
+0001                  00141 r0x1009 res     1
+0002                  00142 r0x100A res     1
+0003                  00143 r0x1000 res     1
+0004                  00144 r0x1001 res     1
+0005                  00145 r0x1002 res     1
+0006                  00146 r0x1003 res     1
+0007                  00147 r0x1004 res     1
+0008                  00148 r0x1005 res     1
+                      00149 ;--------------------------------------------------------
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE  4
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00150 ; initialized data
+                      00151 ;--------------------------------------------------------
+                      00152 ;--------------------------------------------------------
+                      00153 ; overlayable items in internal ram 
+                      00154 ;--------------------------------------------------------
+                      00155 ;       udata_ovr
+                      00156 ;--------------------------------------------------------
+                      00157 ; code
+                      00158 ;--------------------------------------------------------
+                      00159 code_ADC        code
+                      00160 ;***
+                      00161 ;  pBlock Stats: dbName = C
+                      00162 ;***
+                      00163 ;entry:  _ADC_Convert   ;Function start
+                      00164 ; 2 exit points
+                      00165 ;has an exit
+                      00166 ;9 compiler assigned registers:
+                      00167 ;   r0x1000
+                      00168 ;   STK00
+                      00169 ;   r0x1001
+                      00170 ;   r0x1002
+                      00171 ;   r0x1003
+                      00172 ;   r0x1004
+                      00173 ;   r0x1005
+                      00174 ;   r0x1006
+                      00175 ;   r0x1007
+                      00176 ;; Starting pCode block
+                      00177 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00178 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2760:genLabel *{*
+                      00179 ;; ***  genLabel  2763
+                      00180 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00181 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2340:genFunction *{*
+                      00182 ;; ***  genFunction  2342 curr label offset=4previous max_key=0 
+0000                  00183 _ADC_Convert    ;Function start
+                      00184 ; 2 exit points
+                      00185 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00186 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7358:genReceive *{*
+                      00187 ;; ***  genReceive  7359
+                      00188 ;;      694 register type nRegs=1
+                      00189 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1907:assignResultValue *{*
+                      00190 ;; ***  assignResultValue  1909
+                      00191 ;;      line = 1911 result -=-, size=0, left AOP_REG=r0x104B, size=1, right -=-, size=0
+                      00192 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00193 ;;      1109 rIdx = r0x104B 
+                      00194         .line   17; "ADC.c"     tWord ADC_Convert(tByte channel, tByte adjustment)
+0000   ???? ????      00195         BANKSEL r0x1000
+0002   00??           00196         MOVWF   r0x1000
+                      00197 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00198 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7358:genReceive *{*
+                      00199 ;; ***  genReceive  7359
+                      00200 ;;      694 register type nRegs=1
+                      00201 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1907:assignResultValue *{*
+                      00202 ;; ***  assignResultValue  1909
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE  5
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00203 ;;      line = 1911 result -=-, size=0, left AOP_REG=r0x104C, size=1, right -=-, size=0
+                      00204 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1423:get_returnvalue
+                      00205 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+0003   08??           00206         MOVF    STK00,W
+                      00207 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00208 ;;      1109 rIdx = r0x104C 
+0004   00??           00209         MOVWF   r0x1001
+                      00210 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00211 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00212 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      00213 ;; ***  genPointerSet  6687
+                      00214 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      00215 ;; ***  genNearPointerSet  6506
+                      00216 ;;      613
+                      00217 ;;      aopForRemat 392
+                      00218 ;;      418: rname _ADCON0bits, val 0, const = 0
+                      00219 ;; ***  genNearPointerSet  6521
+                      00220 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00221 ;;      _ADCON0bits
+                      00222 ;;      line = 6523 result AOP_PCODE=_ADCON0bits, size=2, left -=-, size=0, right AOP_LIT=0x01, size=1
+                      00223 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      00224 ;; ***  genPackBits  6250
+                      00225 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00226 ;;      _ADCON0bits
+                      00227 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6275:genPackBits
+                      00228         .line   23; "ADC.c"     ADC_ON;
+0005   ???? ????      00229         BANKSEL _ADCON0bits
+0007   14??           00230         BSF     _ADCON0bits,0
+                      00231 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00232 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00233 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      00234 ;; ***  genPointerSet  6687
+                      00235 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      00236 ;; ***  genNearPointerSet  6506
+                      00237 ;;      613
+                      00238 ;;      aopForRemat 392
+                      00239 ;;      418: rname _ADCON1bits, val 0, const = 0
+                      00240 ;; ***  genNearPointerSet  6521
+                      00241 ;;      694 register type nRegs=1
+                      00242 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00243 ;;      _ADCON1bits
+                      00244 ;;      line = 6523 result AOP_PCODE=_ADCON1bits, size=2, left -=-, size=0, right AOP_REG=r0x104C, size=
+                            1
+                      00245 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      00246 ;; ***  genPackBits  6250
+                      00247 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6354:genPackBits
+                      00248 ;;      1109 rIdx = r0x104C 
+                      00249         .line   24; "ADC.c"     ADC_ADJUST_RESULT(adjustment);
+0008   ???? ????      00250         BANKSEL r0x1001
+000A   0C??           00251         RRF     r0x1001,W
+                      00252 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6355:genPackBits
+000B   1803           00253         BTFSC   STATUS,0
+000C   2???           00254         GOTO    _00001_DS_
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE  6
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00255 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6356:genPackBits
+                      00256 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00257 ;;      _ADCON1bits
+000D   ???? ????      00258         BANKSEL _ADCON1bits
+000F   13??           00259         BCF     _ADCON1bits,7
+                      00260 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6357:genPackBits
+0010                  00261 _00001_DS_
+0010   1C03           00262         BTFSS   STATUS,0
+0011   2???           00263         GOTO    _00002_DS_
+                      00264 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6358:genPackBits
+                      00265 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00266 ;;      _ADCON1bits
+0012   ???? ????      00267         BANKSEL _ADCON1bits
+0014   17??           00268         BSF     _ADCON1bits,7
+                      00269 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00270 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00271 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:3919:genAnd *{*
+                      00272 ;; ***  genAnd  3920
+                      00273 ;;      694 register type nRegs=1
+                      00274 ;;      694 register type nRegs=1
+                      00275 ;;      line = 3955 result AOP_REG=r0x104D, size=1, left AOP_REG=r0x104B, size=1, right AOP_LIT=0x04, si
+                            ze=1
+                      00276 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4190:genAnd
+0015                  00277 _00002_DS_
+                      00278         .line   25; "ADC.c"     ADC_SELECT_CHANNEL(channel);
+0015   3004           00279         MOVLW   0x04
+                      00280 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4191:genAnd
+                      00281 ;;      1109 rIdx = r0x104B 
+0016   ???? ????      00282         BANKSEL r0x1000
+0018   05??           00283         ANDWF   r0x1000,W
+                      00284 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4192:genAnd
+                      00285 ;;      1109 rIdx = r0x104D 
+0019   00??           00286         MOVWF   r0x1002
+                      00287 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00288 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5418:genGenericShift *{*
+                      00289 ;; ***  genGenericShift  5421
+                      00290 ;;      694 register type nRegs=1
+                      00291 ;;      694 register type nRegs=1
+                      00292 ;;shiftRight_Left2ResultLit:5273: shCount=1, size=1, sign=0, same=0, offr=0
+                      00293 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5283:shiftRight_Left2ResultLit
+001A   1003           00294         BCF     STATUS,0
+                      00295 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5297:shiftRight_Left2ResultLit
+                      00296 ;;      1109 rIdx = r0x104D 
+001B   0C??           00297         RRF     r0x1002,W
+                      00298 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5298:shiftRight_Left2ResultLit
+                      00299 ;;      1109 rIdx = r0x104E 
+001C   00??           00300         MOVWF   r0x1003
+                      00301 ;; ***  addSign  861
+                      00302 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00303 ;;shiftRight_Left2ResultLit:5273: shCount=1, size=1, sign=0, same=1, offr=0
+                      00304 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5283:shiftRight_Left2ResultLit
+001D   1003           00305         BCF     STATUS,0
+                      00306 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5293:shiftRight_Left2ResultLit
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE  7
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00307 ;;      1109 rIdx = r0x104E 
+001E   0C??           00308         RRF     r0x1003,F
+                      00309 ;; ***  addSign  861
+                      00310 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00311 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00312 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      00313 ;; ***  genPointerSet  6687
+                      00314 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      00315 ;; ***  genNearPointerSet  6506
+                      00316 ;;      613
+                      00317 ;;      aopForRemat 392
+                      00318 ;;      418: rname _ADCON0bits, val 0, const = 0
+                      00319 ;; ***  genNearPointerSet  6521
+                      00320 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00321 ;;      _ADCON0bits
+                      00322 ;;      line = 6523 result AOP_PCODE=_ADCON0bits, size=2, left -=-, size=0, right AOP_REG=r0x104E, size=
+                            1
+                      00323 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      00324 ;; ***  genPackBits  6250
+                      00325 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6354:genPackBits
+                      00326 ;;      1109 rIdx = r0x104E 
+001F   0C??           00327         RRF     r0x1003,W
+                      00328 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6355:genPackBits
+0020   1803           00329         BTFSC   STATUS,0
+0021   2???           00330         GOTO    _00003_DS_
+                      00331 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6356:genPackBits
+                      00332 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00333 ;;      _ADCON0bits
+0022   ???? ????      00334         BANKSEL _ADCON0bits
+0024   12??           00335         BCF     _ADCON0bits,5
+                      00336 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6357:genPackBits
+0025                  00337 _00003_DS_
+0025   1C03           00338         BTFSS   STATUS,0
+0026   2???           00339         GOTO    _00004_DS_
+                      00340 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6358:genPackBits
+                      00341 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00342 ;;      _ADCON0bits
+0027   ???? ????      00343         BANKSEL _ADCON0bits
+0029   16??           00344         BSF     _ADCON0bits,5
+                      00345 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00346 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00347 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:3919:genAnd *{*
+                      00348 ;; ***  genAnd  3920
+                      00349 ;;      694 register type nRegs=1
+                      00350 ;;      694 register type nRegs=1
+                      00351 ;;      line = 3955 result AOP_REG=r0x104D, size=1, left AOP_REG=r0x104B, size=1, right AOP_LIT=0x02, si
+                            ze=1
+                      00352 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4190:genAnd
+002A                  00353 _00004_DS_
+002A   3002           00354         MOVLW   0x02
+                      00355 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4191:genAnd
+                      00356 ;;      1109 rIdx = r0x104B 
+002B   ???? ????      00357         BANKSEL r0x1000
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE  8
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+002D   05??           00358         ANDWF   r0x1000,W
+                      00359 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4192:genAnd
+                      00360 ;;      1109 rIdx = r0x104D 
+002E   00??           00361         MOVWF   r0x1002
+                      00362 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00363 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5418:genGenericShift *{*
+                      00364 ;; ***  genGenericShift  5421
+                      00365 ;;      694 register type nRegs=1
+                      00366 ;;      694 register type nRegs=1
+                      00367 ;;shiftRight_Left2ResultLit:5273: shCount=1, size=1, sign=0, same=0, offr=0
+                      00368 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5283:shiftRight_Left2ResultLit
+002F   1003           00369         BCF     STATUS,0
+                      00370 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5297:shiftRight_Left2ResultLit
+                      00371 ;;      1109 rIdx = r0x104D 
+0030   0C??           00372         RRF     r0x1002,W
+                      00373 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5298:shiftRight_Left2ResultLit
+                      00374 ;;      1109 rIdx = r0x104E 
+0031   00??           00375         MOVWF   r0x1003
+                      00376 ;; ***  addSign  861
+                      00377 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00378 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00379 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      00380 ;; ***  genPointerSet  6687
+                      00381 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      00382 ;; ***  genNearPointerSet  6506
+                      00383 ;;      613
+                      00384 ;;      aopForRemat 392
+                      00385 ;;      418: rname _ADCON0bits, val 0, const = 0
+                      00386 ;; ***  genNearPointerSet  6521
+                      00387 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00388 ;;      _ADCON0bits
+                      00389 ;;      line = 6523 result AOP_PCODE=_ADCON0bits, size=2, left -=-, size=0, right AOP_REG=r0x104E, size=
+                            1
+                      00390 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      00391 ;; ***  genPackBits  6250
+                      00392 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6354:genPackBits
+                      00393 ;;      1109 rIdx = r0x104E 
+0032   0C??           00394         RRF     r0x1003,W
+                      00395 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6355:genPackBits
+0033   1803           00396         BTFSC   STATUS,0
+0034   2???           00397         GOTO    _00005_DS_
+                      00398 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6356:genPackBits
+                      00399 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00400 ;;      _ADCON0bits
+0035   ???? ????      00401         BANKSEL _ADCON0bits
+0037   12??           00402         BCF     _ADCON0bits,4
+                      00403 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6357:genPackBits
+0038                  00404 _00005_DS_
+0038   1C03           00405         BTFSS   STATUS,0
+0039   2???           00406         GOTO    _00006_DS_
+                      00407 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6358:genPackBits
+                      00408 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00409 ;;      _ADCON0bits
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE  9
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+003A   ???? ????      00410         BANKSEL _ADCON0bits
+003C   16??           00411         BSF     _ADCON0bits,4
+                      00412 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00413 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00414 ;;      694 register type nRegs=1
+                      00415 ;;      694 register type nRegs=1
+                      00416 ;; ***  mov2w  1381  offset=0
+                      00417 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1386:mov2w
+                      00418 ;;      1109 rIdx = r0x104B 
+003D                  00419 _00006_DS_
+003D   ???? ????      00420         BANKSEL r0x1000
+003F   08??           00421         MOVF    r0x1000,W
+                      00422 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4911:genGetABit
+0040   3901           00423         ANDLW   0x01
+                      00424 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4927:genGetABit
+                      00425 ;;      1109 rIdx = r0x104D 
+0041   00??           00426         MOVWF   r0x1002
+0042   00??           00427         MOVWF   r0x1000
+                      00428 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00429 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      00430 ;; ***  genPointerSet  6687
+                      00431 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      00432 ;; ***  genNearPointerSet  6506
+                      00433 ;;      613
+                      00434 ;;      aopForRemat 392
+                      00435 ;;      418: rname _ADCON0bits, val 0, const = 0
+                      00436 ;; ***  genNearPointerSet  6521
+                      00437 ;;      694 register type nRegs=1
+                      00438 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00439 ;;      _ADCON0bits
+                      00440 ;;      line = 6523 result AOP_PCODE=_ADCON0bits, size=2, left -=-, size=0, right AOP_REG=r0x104B, size=
+                            1
+                      00441 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      00442 ;; ***  genPackBits  6250
+                      00443 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6354:genPackBits
+                      00444 ;;      1109 rIdx = r0x104B 
+0043   0C??           00445         RRF     r0x1000,W
+                      00446 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6355:genPackBits
+0044   1803           00447         BTFSC   STATUS,0
+0045   2???           00448         GOTO    _00007_DS_
+                      00449 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6356:genPackBits
+                      00450 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00451 ;;      _ADCON0bits
+0046   ???? ????      00452         BANKSEL _ADCON0bits
+0048   11??           00453         BCF     _ADCON0bits,3
+                      00454 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6357:genPackBits
+0049                  00455 _00007_DS_
+0049   1C03           00456         BTFSS   STATUS,0
+004A   2???           00457         GOTO    _00008_DS_
+                      00458 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6358:genPackBits
+                      00459 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00460 ;;      _ADCON0bits
+004B   ???? ????      00461         BANKSEL _ADCON0bits
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 10
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+004D   15??           00462         BSF     _ADCON0bits,3
+                      00463 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00464 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00465 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      00466 ;; ***  genPointerSet  6687
+                      00467 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      00468 ;; ***  genNearPointerSet  6506
+                      00469 ;;      613
+                      00470 ;;      aopForRemat 392
+                      00471 ;;      418: rname _ADCON0bits, val 0, const = 0
+                      00472 ;; ***  genNearPointerSet  6521
+                      00473 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00474 ;;      _ADCON0bits
+                      00475 ;;      line = 6523 result AOP_PCODE=_ADCON0bits, size=2, left -=-, size=0, right AOP_LIT=0x01, size=1
+                      00476 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      00477 ;; ***  genPackBits  6250
+                      00478 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00479 ;;      _ADCON0bits
+                      00480 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6275:genPackBits
+004E                  00481 _00008_DS_
+                      00482         .line   26; "ADC.c"     ADC_START_CONVERSION;
+004E   ???? ????      00483         BANKSEL _ADCON0bits
+0050   15??           00484         BSF     _ADCON0bits,2
+                      00485 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00486 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2760:genLabel *{*
+                      00487 ;; ***  genLabel  2763
+                      00488 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00489 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00490 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6162:genPointerGet *{*
+                      00491 ;; ***  genPointerGet  6163
+                      00492 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5944:genNearPointerGet *{*
+                      00493 ;; ***  genNearPointerGet  5945
+                      00494 ;;      613
+                      00495 ;;      aopForRemat 392
+                      00496 ;;      418: rname _ADCON0bits, val 0, const = 0
+                      00497 ;; ***  genNearPointerGet  5961
+                      00498 ;;      694 register type nRegs=1
+                      00499 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5760:genUnpackBits *{*
+                      00500 ;; ***  genUnpackBits  5761
+                      00501 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5799:genUnpackBits
+                      00502 ;;      1109 rIdx = r0x104B 
+0051                  00503 _00109_DS_
+                      00504         .line   27; "ADC.c"     ADC_WAIT_FOR_RESULT;
+0051   ???? ????      00505         BANKSEL r0x1000
+0053   01??           00506         CLRF    r0x1000
+                      00507 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5805:genUnpackBits
+                      00508 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00509 ;;      _ADCON0bits
+0054   ???? ????      00510         BANKSEL _ADCON0bits
+0056   1D??           00511         BTFSS   _ADCON0bits,2
+0057   2???           00512         GOTO    _00009_DS_
+                      00513 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5835:genUnpackBits
+                      00514 ;;      1109 rIdx = r0x104B 
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 11
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0058   ???? ????      00515         BANKSEL r0x1000
+005A   0A??           00516         INCF    r0x1000,F
+                      00517 ;; ***  addSign  861
+                      00518 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00519 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00520 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7120:genCast *{*
+                      00521 ;; ***  genCast  7121
+                      00522 ;;      694 register type nRegs=1
+                      00523 ;;      694 register type nRegs=1
+                      00524 ;;      line = 7129 result AOP_REG=r0x104D, size=1, left -=-, size=0, right AOP_REG=r0x104B, size=1
+                      00525 ;; ***  genCast  7253
+                      00526 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7277:genCast
+                      00527 ;;      1109 rIdx = r0x104B 
+005B                  00528 _00009_DS_
+005B   ???? ????      00529         BANKSEL r0x1000
+005D   08??           00530         MOVF    r0x1000,W
+005E   00??           00531         MOVWF   r0x1002
+                      00532         .line   28; "ADC.c"     ret = ADC_READ_RESULT(adjustment);
+005F   3A01           00533         XORLW   0x01
+0060   1903           00534         BTFSC   STATUS,2
+0061   2???           00535         GOTO    _00109_DS_
+0062   08??           00536         MOVF    r0x1001,W
+0063   1903           00537         BTFSC   STATUS,2
+                      00538 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6814:genIfx
+                      00539 ;; ***  popGetLabel  key=6, label offset 8
+0064   2???           00540         GOTO    _00114_DS_
+                      00541 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00542 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7120:genCast *{*
+                      00543 ;; ***  genCast  7121
+                      00544 ;; ***  aopForSym 315
+                      00545 ;;      327 sym->rname = _ADRESH, size = 1
+                      00546 ;;      694 register type nRegs=2
+                      00547 ;;      line = 7129 result AOP_REG=r0x104C, size=2, left -=-, size=0, right AOP_DIR=_ADRESH, size=1
+                      00548 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7298:genCast
+                      00549 ;;      1009
+                      00550 ;;      1024  _ADRESH   offset=0 - had to alloc by reg name
+0065   ???? ????      00551         BANKSEL _ADRESH
+0067   08??           00552         MOVF    _ADRESH,W
+                      00553 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7299:genCast
+                      00554 ;;      1109 rIdx = r0x104C 
+0068   ???? ????      00555         BANKSEL r0x1003
+006A   00??           00556         MOVWF   r0x1003
+006B   00??           00557         MOVWF   r0x1001
+                      00558 ;; ***  addSign  861
+                      00559 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00560 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:881:addSign
+                      00561 ;;      1109 rIdx = r0x104B 
+006C   01??           00562         CLRF    r0x1000
+                      00563 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00564 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5418:genGenericShift *{*
+                      00565 ;; ***  genGenericShift  5421
+                      00566 ;;      694 register type nRegs=2
+                      00567 ;;      694 register type nRegs=2
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 12
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00568 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5133:movLeft2Result *{*
+                      00569 ;; ***  movLeft2Result  5134
+                      00570 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5139:movLeft2Result
+                      00571 ;;      1109 rIdx = r0x104C 
+                      00572 ;;102   MOVF    r0x1001,W
+                      00573 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5140:movLeft2Result
+                      00574 ;;      1109 rIdx = r0x104E 
+                      00575 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5236:shiftLeft_Left2ResultLit
+                      00576 ;;      1109 rIdx = r0x104D 
+006D   01??           00577         CLRF    r0x1002
+                      00578 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00579 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7120:genCast *{*
+                      00580 ;; ***  genCast  7121
+                      00581 ;; ***  aopForSym 315
+                      00582 ;;      327 sym->rname = _ADRESL, size = 1
+                      00583 ;;      694 register type nRegs=2
+                      00584 ;;      line = 7129 result AOP_REG=r0x104C, size=2, left -=-, size=0, right AOP_DIR=_ADRESL, size=1
+                      00585 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7298:genCast
+                      00586 ;;      1009
+                      00587 ;;      1024  _ADRESL   offset=0 - had to alloc by reg name
+006E   ???? ????      00588         BANKSEL _ADRESL
+0070   08??           00589         MOVF    _ADRESL,W
+                      00590 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7299:genCast
+                      00591 ;;      1109 rIdx = r0x104C 
+0071   ???? ????      00592         BANKSEL r0x1001
+0073   00??           00593         MOVWF   r0x1001
+                      00594 ;; ***  addSign  861
+                      00595 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00596 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:881:addSign
+                      00597 ;;      1109 rIdx = r0x104B 
+0074   01??           00598         CLRF    r0x1000
+                      00599 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00600 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4220:genOr *{*
+                      00601 ;; ***  genOr  4221
+                      00602 ;;      694 register type nRegs=2
+                      00603 ;;      694 register type nRegs=2
+                      00604 ;;      line = 4227 result AOP_REG=r0x104C, size=2, left AOP_REG=r0x104D, size=2, right AOP_REG=r0x104C,
+                             size=2
+                      00605 ;;      line = 4253 result AOP_REG=r0x104C, size=2, left AOP_REG=r0x104C, size=2, right AOP_REG=r0x104D,
+                             size=2
+                      00606 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4418:genOr
+                      00607 ;;      1109 rIdx = r0x104D 
+0075   3000           00608         MOVLW   0x00
+                      00609 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4419:genOr
+                      00610 ;;      1109 rIdx = r0x104C 
+0076   04??           00611         IORWF   r0x1001,F
+                      00612 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4418:genOr
+                      00613 ;;      1109 rIdx = r0x104E 
+0077   08??           00614         MOVF    r0x1003,W
+                      00615 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4419:genOr
+                      00616 ;;      1109 rIdx = r0x104B 
+0078   04??           00617         IORWF   r0x1000,F
+                      00618 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 13
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00619 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2778:genGoto *{*
+                      00620 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2780:genGoto
+                      00621 ;; ***  popGetLabel  key=7, label offset 8
+0079   2???           00622         GOTO    _00115_DS_
+                      00623 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00624 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2760:genLabel *{*
+                      00625 ;; ***  genLabel  2763
+                      00626 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00627 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7120:genCast *{*
+                      00628 ;; ***  genCast  7121
+                      00629 ;; ***  aopForSym 315
+                      00630 ;;      327 sym->rname = _ADRESH, size = 1
+                      00631 ;;      694 register type nRegs=2
+                      00632 ;;      line = 7129 result AOP_REG=r0x104D, size=2, left -=-, size=0, right AOP_DIR=_ADRESH, size=1
+                      00633 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7298:genCast
+                      00634 ;;      1009
+                      00635 ;;      1028  _ADRESH   offset=0
+007A                  00636 _00114_DS_
+007A   ???? ????      00637         BANKSEL _ADRESH
+007C   08??           00638         MOVF    _ADRESH,W
+                      00639 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7299:genCast
+                      00640 ;;      1109 rIdx = r0x104D 
+007D   ???? ????      00641         BANKSEL r0x1002
+007F   00??           00642         MOVWF   r0x1002
+                      00643 ;; ***  addSign  861
+                      00644 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00645 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:881:addSign
+                      00646 ;;      1109 rIdx = r0x104E 
+0080   01??           00647         CLRF    r0x1003
+                      00648 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00649 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5418:genGenericShift *{*
+                      00650 ;; ***  genGenericShift  5421
+                      00651 ;;      694 register type nRegs=2
+                      00652 ;;      694 register type nRegs=2
+                      00653 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5183:shiftLeft_Left2ResultLit
+0081   1003           00654         BCF     STATUS,0
+                      00655 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5192:shiftLeft_Left2ResultLit
+                      00656 ;;      1109 rIdx = r0x104D 
+0082   0D??           00657         RLF     r0x1002,W
+                      00658 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5193:shiftLeft_Left2ResultLit
+                      00659 ;;      1109 rIdx = r0x104F 
+0083   00??           00660         MOVWF   r0x1004
+                      00661 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5192:shiftLeft_Left2ResultLit
+                      00662 ;;      1109 rIdx = r0x104E 
+0084   0D??           00663         RLF     r0x1003,W
+                      00664 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5193:shiftLeft_Left2ResultLit
+                      00665 ;;      1109 rIdx = r0x1050 
+0085   00??           00666         MOVWF   r0x1005
+                      00667 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5183:shiftLeft_Left2ResultLit
+0086   1003           00668         BCF     STATUS,0
+                      00669 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5188:shiftLeft_Left2ResultLit
+                      00670 ;;      1109 rIdx = r0x104F 
+0087   0D??           00671         RLF     r0x1004,F
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 14
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00672 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5188:shiftLeft_Left2ResultLit
+                      00673 ;;      1109 rIdx = r0x1050 
+0088   0D??           00674         RLF     r0x1005,F
+                      00675 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00676 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5418:genGenericShift *{*
+                      00677 ;; ***  genGenericShift  5421
+                      00678 ;; ***  aopForSym 315
+                      00679 ;;      327 sym->rname = _ADRESL, size = 1
+                      00680 ;;      694 register type nRegs=1
+                      00681 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5306:shiftRight_Left2ResultLit
+                      00682 ;;      1009
+                      00683 ;;      1028  _ADRESL   offset=0
+0089   ???? ????      00684         BANKSEL _ADRESL
+008B   0E??           00685         SWAPF   _ADRESL,W
+                      00686 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5307:shiftRight_Left2ResultLit
+008C   390F           00687         ANDLW   0x0f
+                      00688 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5308:shiftRight_Left2ResultLit
+                      00689 ;;      1109 rIdx = r0x104D 
+008D   ???? ????      00690         BANKSEL r0x1002
+008F   00??           00691         MOVWF   r0x1002
+                      00692 ;; ***  addSign  861
+                      00693 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00694 ;;shiftRight_Left2ResultLit:5273: shCount=1, size=1, sign=0, same=1, offr=0
+                      00695 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5283:shiftRight_Left2ResultLit
+0090   1003           00696         BCF     STATUS,0
+                      00697 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5293:shiftRight_Left2ResultLit
+                      00698 ;;      1109 rIdx = r0x104D 
+0091   0C??           00699         RRF     r0x1002,F
+                      00700 ;; ***  addSign  861
+                      00701 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00702 ;;shiftRight_Left2ResultLit:5273: shCount=1, size=1, sign=0, same=1, offr=0
+                      00703 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5283:shiftRight_Left2ResultLit
+0092   1003           00704         BCF     STATUS,0
+                      00705 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5293:shiftRight_Left2ResultLit
+                      00706 ;;      1109 rIdx = r0x104D 
+0093   0C??           00707         RRF     r0x1002,F
+                      00708 ;; ***  addSign  861
+                      00709 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00710 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00711 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7120:genCast *{*
+                      00712 ;; ***  genCast  7121
+                      00713 ;;      694 register type nRegs=2
+                      00714 ;;      line = 7129 result AOP_REG=r0x1051, size=2, left -=-, size=0, right AOP_REG=r0x104D, size=1
+                      00715 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7298:genCast
+                      00716 ;;      1109 rIdx = r0x104D 
+                      00717 ;;101   MOVF    r0x1002,W
+                      00718 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7299:genCast
+                      00719 ;;      1109 rIdx = r0x1051 
+                      00720 ;;99    MOVWF   r0x1006
+                      00721 ;; ***  addSign  861
+                      00722 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00723 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:881:addSign
+                      00724 ;;      1109 rIdx = r0x1052 
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 15
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00725 ;;1     CLRF    r0x1007
+                      00726 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00727 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4220:genOr *{*
+                      00728 ;; ***  genOr  4221
+                      00729 ;;      694 register type nRegs=2
+                      00730 ;;      694 register type nRegs=2
+                      00731 ;;      line = 4227 result AOP_REG=r0x104C, size=2, left AOP_REG=r0x104F, size=2, right AOP_REG=r0x1051,
+                             size=2
+                      00732 ;;      line = 4253 result AOP_REG=r0x104C, size=2, left AOP_REG=r0x104F, size=2, right AOP_REG=r0x1051,
+                             size=2
+                      00733 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4479:genOr
+                      00734 ;;      1109 rIdx = r0x1051 
+                      00735 ;;100   MOVF    r0x1006,W
+0094   08??           00736         MOVF    r0x1002,W
+                      00737 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4480:genOr
+                      00738 ;;      1109 rIdx = r0x104F 
+0095   04??           00739         IORWF   r0x1004,W
+                      00740 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4481:genOr
+                      00741 ;;      1109 rIdx = r0x104C 
+0096   00??           00742         MOVWF   r0x1001
+                      00743 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4479:genOr
+                      00744 ;;      1109 rIdx = r0x1052 
+0097   08??           00745         MOVF    r0x1005,W
+0098   00??           00746         MOVWF   r0x1000
+                      00747 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00748 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2760:genLabel *{*
+                      00749 ;; ***  genLabel  2763
+                      00750 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00751 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6927:genAssign *{*
+                      00752 ;; ***  genAssign  6928
+                      00753 ;;      694 register type nRegs=2
+                      00754 ;;      694 register type nRegs=2
+                      00755 ;;      line = 6937 result AOP_REG=r0x104C, size=2, left -=-, size=0, right AOP_REG=r0x104C, size=2
+                      00756 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00757 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00758 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      00759 ;; ***  genPointerSet  6687
+                      00760 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      00761 ;; ***  genNearPointerSet  6506
+                      00762 ;;      613
+                      00763 ;;      aopForRemat 392
+                      00764 ;;      418: rname _ADCON0bits, val 0, const = 0
+                      00765 ;; ***  genNearPointerSet  6521
+                      00766 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00767 ;;      _ADCON0bits
+                      00768 ;;      line = 6523 result AOP_PCODE=_ADCON0bits, size=2, left -=-, size=0, right AOP_LIT=0x00, size=1
+                      00769 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      00770 ;; ***  genPackBits  6250
+                      00771 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00772 ;;      _ADCON0bits
+                      00773 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6275:genPackBits
+0099                  00774 _00115_DS_
+                      00775         .line   29; "ADC.c"     ADC_OFF;
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 16
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0099   ???? ????      00776         BANKSEL _ADCON0bits
+009B   10??           00777         BCF     _ADCON0bits,0
+                      00778 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00779 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2683:genRet *{*
+                      00780 ;; ***  genRet  2685
+                      00781 ;;      694 register type nRegs=2
+                      00782 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00783 ;; ***  mov2w  1381  offset=0
+                      00784 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1386:mov2w
+                      00785 ;;      1109 rIdx = r0x104C 
+                      00786         .line   31; "ADC.c"     return ret;
+009C   ???? ????      00787         BANKSEL r0x1001
+009E   08??           00788         MOVF    r0x1001,W
+                      00789 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1416:pass_argument
+                      00790 ;; ***  popRegFromIdx,1042  , rIdx=0x7f
+009F   00??           00791         MOVWF   STK00
+                      00792 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1343:mov2w_op *{*
+                      00793 ;; ***  mov2w  1381  offset=1
+                      00794 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1386:mov2w
+                      00795 ;;      1109 rIdx = r0x104B 
+00A0   08??           00796         MOVF    r0x1000,W
+                      00797 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00798 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2760:genLabel *{*
+                      00799 ;; ***  genLabel  2763
+                      00800 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00801 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2528:genEndFunction *{*
+                      00802 ;; ***  genEndFunction  2530
+00A1   0008           00803         RETURN  
+                      00804 ; exit point of _ADC_Convert
+                      00805 
+                      00806 ;***
+                      00807 ;  pBlock Stats: dbName = C
+                      00808 ;***
+                      00809 ;entry:  _ADC_Init      ;Function start
+                      00810 ; 2 exit points
+                      00811 ;has an exit
+                      00812 ;3 compiler assigned registers:
+                      00813 ;   r0x1008
+                      00814 ;   r0x1009
+                      00815 ;   r0x100A
+                      00816 ;; Starting pCode block
+                      00817 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00818 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2760:genLabel *{*
+                      00819 ;; ***  genLabel  2763
+                      00820 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00821 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2340:genFunction *{*
+                      00822 ;; ***  genFunction  2342 curr label offset=0previous max_key=0 
+00A2                  00823 _ADC_Init       ;Function start
+                      00824 ; 2 exit points
+                      00825 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00826 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7358:genReceive *{*
+                      00827 ;; ***  genReceive  7359
+                      00828 ;;      694 register type nRegs=1
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 17
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00829 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1907:assignResultValue *{*
+                      00830 ;; ***  assignResultValue  1909
+                      00831 ;;      line = 1911 result -=-, size=0, left AOP_REG=r0x1048, size=1, right -=-, size=0
+                      00832 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1393:movwf
+                      00833 ;;      1109 rIdx = r0x1048 
+                      00834         .line   6; "ADC.c"      void ADC_Init(tByte clock)
+00A2   ???? ????      00835         BANKSEL r0x1008
+00A4   00??           00836         MOVWF   r0x1008
+                      00837 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00838 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00839 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      00840 ;; ***  genPointerSet  6687
+                      00841 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      00842 ;; ***  genNearPointerSet  6506
+                      00843 ;;      613
+                      00844 ;;      aopForRemat 392
+                      00845 ;;      418: rname _ADCON0bits, val 0, const = 0
+                      00846 ;; ***  genNearPointerSet  6521
+                      00847 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00848 ;;      _ADCON0bits
+                      00849 ;;      line = 6523 result AOP_PCODE=_ADCON0bits, size=2, left -=-, size=0, right AOP_LIT=0x00, size=1
+                      00850 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      00851 ;; ***  genPackBits  6250
+                      00852 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00853 ;;      _ADCON0bits
+                      00854 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6275:genPackBits
+                      00855         .line   10; "ADC.c"     ADC_OFF;
+00A5   ???? ????      00856         BANKSEL _ADCON0bits
+00A7   10??           00857         BCF     _ADCON0bits,0
+                      00858 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00859 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00860 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:3919:genAnd *{*
+                      00861 ;; ***  genAnd  3920
+                      00862 ;;      694 register type nRegs=1
+                      00863 ;;      694 register type nRegs=1
+                      00864 ;;      line = 3955 result AOP_REG=r0x1049, size=1, left AOP_REG=r0x1048, size=1, right AOP_LIT=0x04, si
+                            ze=1
+                      00865 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4190:genAnd
+                      00866         .line   11; "ADC.c"     ADC_SELECT_CLOCK(clock);
+00A8   3004           00867         MOVLW   0x04
+                      00868 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4191:genAnd
+                      00869 ;;      1109 rIdx = r0x1048 
+00A9   ???? ????      00870         BANKSEL r0x1008
+00AB   05??           00871         ANDWF   r0x1008,W
+                      00872 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4192:genAnd
+                      00873 ;;      1109 rIdx = r0x1049 
+00AC   00??           00874         MOVWF   r0x1009
+                      00875 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00876 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5418:genGenericShift *{*
+                      00877 ;; ***  genGenericShift  5421
+                      00878 ;;      694 register type nRegs=1
+                      00879 ;;      694 register type nRegs=1
+                      00880 ;;shiftRight_Left2ResultLit:5273: shCount=1, size=1, sign=0, same=0, offr=0
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 18
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00881 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5283:shiftRight_Left2ResultLit
+00AD   1003           00882         BCF     STATUS,0
+                      00883 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5297:shiftRight_Left2ResultLit
+                      00884 ;;      1109 rIdx = r0x1049 
+00AE   0C??           00885         RRF     r0x1009,W
+                      00886 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5298:shiftRight_Left2ResultLit
+                      00887 ;;      1109 rIdx = r0x104A 
+00AF   00??           00888         MOVWF   r0x100A
+                      00889 ;; ***  addSign  861
+                      00890 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00891 ;;shiftRight_Left2ResultLit:5273: shCount=1, size=1, sign=0, same=1, offr=0
+                      00892 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5283:shiftRight_Left2ResultLit
+00B0   1003           00893         BCF     STATUS,0
+                      00894 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5293:shiftRight_Left2ResultLit
+                      00895 ;;      1109 rIdx = r0x104A 
+00B1   0C??           00896         RRF     r0x100A,F
+                      00897 ;; ***  addSign  861
+                      00898 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00899 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00900 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      00901 ;; ***  genPointerSet  6687
+                      00902 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      00903 ;; ***  genNearPointerSet  6506
+                      00904 ;;      613
+                      00905 ;;      aopForRemat 392
+                      00906 ;;      418: rname _ADCON1bits, val 0, const = 0
+                      00907 ;; ***  genNearPointerSet  6521
+                      00908 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00909 ;;      _ADCON1bits
+                      00910 ;;      line = 6523 result AOP_PCODE=_ADCON1bits, size=2, left -=-, size=0, right AOP_REG=r0x104A, size=
+                            1
+                      00911 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      00912 ;; ***  genPackBits  6250
+                      00913 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6354:genPackBits
+                      00914 ;;      1109 rIdx = r0x104A 
+00B2   0C??           00915         RRF     r0x100A,W
+                      00916 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6355:genPackBits
+00B3   1803           00917         BTFSC   STATUS,0
+00B4   2???           00918         GOTO    _00010_DS_
+                      00919 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6356:genPackBits
+                      00920 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00921 ;;      _ADCON1bits
+00B5   ???? ????      00922         BANKSEL _ADCON1bits
+00B7   13??           00923         BCF     _ADCON1bits,6
+                      00924 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6357:genPackBits
+00B8                  00925 _00010_DS_
+00B8   1C03           00926         BTFSS   STATUS,0
+00B9   2???           00927         GOTO    _00011_DS_
+                      00928 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6358:genPackBits
+                      00929 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00930 ;;      _ADCON1bits
+00BA   ???? ????      00931         BANKSEL _ADCON1bits
+00BC   17??           00932         BSF     _ADCON1bits,6
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 19
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00933 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00934 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00935 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:3919:genAnd *{*
+                      00936 ;; ***  genAnd  3920
+                      00937 ;;      694 register type nRegs=1
+                      00938 ;;      694 register type nRegs=1
+                      00939 ;;      line = 3955 result AOP_REG=r0x1049, size=1, left AOP_REG=r0x1048, size=1, right AOP_LIT=0x02, si
+                            ze=1
+                      00940 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4190:genAnd
+00BD                  00941 _00011_DS_
+00BD   3002           00942         MOVLW   0x02
+                      00943 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4191:genAnd
+                      00944 ;;      1109 rIdx = r0x1048 
+00BE   ???? ????      00945         BANKSEL r0x1008
+00C0   05??           00946         ANDWF   r0x1008,W
+                      00947 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4192:genAnd
+                      00948 ;;      1109 rIdx = r0x1049 
+00C1   00??           00949         MOVWF   r0x1009
+                      00950 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00951 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5418:genGenericShift *{*
+                      00952 ;; ***  genGenericShift  5421
+                      00953 ;;      694 register type nRegs=1
+                      00954 ;;      694 register type nRegs=1
+                      00955 ;;shiftRight_Left2ResultLit:5273: shCount=1, size=1, sign=0, same=0, offr=0
+                      00956 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5283:shiftRight_Left2ResultLit
+00C2   1003           00957         BCF     STATUS,0
+                      00958 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5297:shiftRight_Left2ResultLit
+                      00959 ;;      1109 rIdx = r0x1049 
+00C3   0C??           00960         RRF     r0x1009,W
+                      00961 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:5298:shiftRight_Left2ResultLit
+                      00962 ;;      1109 rIdx = r0x104A 
+00C4   00??           00963         MOVWF   r0x100A
+                      00964 ;; ***  addSign  861
+                      00965 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/genarith.c:862:addSign *{*
+                      00966 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      00967 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      00968 ;; ***  genPointerSet  6687
+                      00969 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      00970 ;; ***  genNearPointerSet  6506
+                      00971 ;;      613
+                      00972 ;;      aopForRemat 392
+                      00973 ;;      418: rname _ADCON0bits, val 0, const = 0
+                      00974 ;; ***  genNearPointerSet  6521
+                      00975 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00976 ;;      _ADCON0bits
+                      00977 ;;      line = 6523 result AOP_PCODE=_ADCON0bits, size=2, left -=-, size=0, right AOP_REG=r0x104A, size=
+                            1
+                      00978 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      00979 ;; ***  genPackBits  6250
+                      00980 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6354:genPackBits
+                      00981 ;;      1109 rIdx = r0x104A 
+00C5   0C??           00982         RRF     r0x100A,W
+                      00983 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6355:genPackBits
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 20
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00C6   1803           00984         BTFSC   STATUS,0
+00C7   2???           00985         GOTO    _00012_DS_
+                      00986 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6356:genPackBits
+                      00987 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00988 ;;      _ADCON0bits
+00C8   ???? ????      00989         BANKSEL _ADCON0bits
+00CA   13??           00990         BCF     _ADCON0bits,7
+                      00991 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6357:genPackBits
+00CB                  00992 _00012_DS_
+00CB   1C03           00993         BTFSS   STATUS,0
+00CC   2???           00994         GOTO    _00013_DS_
+                      00995 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6358:genPackBits
+                      00996 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      00997 ;;      _ADCON0bits
+00CD   ???? ????      00998         BANKSEL _ADCON0bits
+00CF   17??           00999         BSF     _ADCON0bits,7
+                      01000 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      01001 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      01002 ;;      694 register type nRegs=1
+                      01003 ;;      694 register type nRegs=1
+                      01004 ;; ***  mov2w  1381  offset=0
+                      01005 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:1386:mov2w
+                      01006 ;;      1109 rIdx = r0x1048 
+00D0                  01007 _00013_DS_
+00D0   ???? ????      01008         BANKSEL r0x1008
+00D2   08??           01009         MOVF    r0x1008,W
+                      01010 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4911:genGetABit
+00D3   3901           01011         ANDLW   0x01
+                      01012 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:4927:genGetABit
+                      01013 ;;      1109 rIdx = r0x1049 
+00D4   00??           01014         MOVWF   r0x1009
+00D5   00??           01015         MOVWF   r0x1008
+                      01016 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      01017 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      01018 ;; ***  genPointerSet  6687
+                      01019 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      01020 ;; ***  genNearPointerSet  6506
+                      01021 ;;      613
+                      01022 ;;      aopForRemat 392
+                      01023 ;;      418: rname _ADCON0bits, val 0, const = 0
+                      01024 ;; ***  genNearPointerSet  6521
+                      01025 ;;      694 register type nRegs=1
+                      01026 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      01027 ;;      _ADCON0bits
+                      01028 ;;      line = 6523 result AOP_PCODE=_ADCON0bits, size=2, left -=-, size=0, right AOP_REG=r0x1048, size=
+                            1
+                      01029 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      01030 ;; ***  genPackBits  6250
+                      01031 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6354:genPackBits
+                      01032 ;;      1109 rIdx = r0x1048 
+00D6   0C??           01033         RRF     r0x1008,W
+                      01034 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6355:genPackBits
+00D7   1803           01035         BTFSC   STATUS,0
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 21
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00D8   2???           01036         GOTO    _00014_DS_
+                      01037 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6356:genPackBits
+                      01038 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      01039 ;;      _ADCON0bits
+00D9   ???? ????      01040         BANKSEL _ADCON0bits
+00DB   13??           01041         BCF     _ADCON0bits,6
+                      01042 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6357:genPackBits
+00DC                  01043 _00014_DS_
+00DC   1C03           01044         BTFSS   STATUS,0
+00DD   2???           01045         GOTO    _00015_DS_
+                      01046 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6358:genPackBits
+                      01047 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      01048 ;;      _ADCON0bits
+00DE   ???? ????      01049         BANKSEL _ADCON0bits
+00E0   17??           01050         BSF     _ADCON0bits,6
+                      01051 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      01052 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      01053 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      01054 ;; ***  genPointerSet  6687
+                      01055 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      01056 ;; ***  genNearPointerSet  6506
+                      01057 ;;      613
+                      01058 ;;      aopForRemat 392
+                      01059 ;;      418: rname _ADCON1bits, val 0, const = 0
+                      01060 ;; ***  genNearPointerSet  6521
+                      01061 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      01062 ;;      _ADCON1bits
+                      01063 ;;      line = 6523 result AOP_PCODE=_ADCON1bits, size=2, left -=-, size=0, right AOP_LIT=0x00, size=1
+                      01064 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      01065 ;; ***  genPackBits  6250
+                      01066 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      01067 ;;      _ADCON1bits
+                      01068 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6275:genPackBits
+00E1                  01069 _00015_DS_
+                      01070         .line   12; "ADC.c"     ADC_CONFIGURE_PORT;
+00E1   ???? ????      01071         BANKSEL _ADCON1bits
+00E3   11??           01072         BCF     _ADCON1bits,3
+                      01073 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      01074 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      01075 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      01076 ;; ***  genPointerSet  6687
+                      01077 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      01078 ;; ***  genNearPointerSet  6506
+                      01079 ;;      613
+                      01080 ;;      aopForRemat 392
+                      01081 ;;      418: rname _ADCON1bits, val 0, const = 0
+                      01082 ;; ***  genNearPointerSet  6521
+                      01083 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      01084 ;;      _ADCON1bits
+                      01085 ;;      line = 6523 result AOP_PCODE=_ADCON1bits, size=2, left -=-, size=0, right AOP_LIT=0x00, size=1
+                      01086 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      01087 ;; ***  genPackBits  6250
+                      01088 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 22
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      01089 ;;      _ADCON1bits
+                      01090 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6275:genPackBits
+00E4   11??           01091         BCF     _ADCON1bits,2
+                      01092 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      01093 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      01094 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      01095 ;; ***  genPointerSet  6687
+                      01096 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      01097 ;; ***  genNearPointerSet  6506
+                      01098 ;;      613
+                      01099 ;;      aopForRemat 392
+                      01100 ;;      418: rname _ADCON1bits, val 0, const = 0
+                      01101 ;; ***  genNearPointerSet  6521
+                      01102 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      01103 ;;      _ADCON1bits
+                      01104 ;;      line = 6523 result AOP_PCODE=_ADCON1bits, size=2, left -=-, size=0, right AOP_LIT=0x01, size=1
+                      01105 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      01106 ;; ***  genPackBits  6250
+                      01107 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      01108 ;;      _ADCON1bits
+                      01109 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6275:genPackBits
+00E5   14??           01110         BSF     _ADCON1bits,1
+                      01111 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      01112 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      01113 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6686:genPointerSet *{*
+                      01114 ;; ***  genPointerSet  6687
+                      01115 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6505:genNearPointerSet *{*
+                      01116 ;; ***  genNearPointerSet  6506
+                      01117 ;;      613
+                      01118 ;;      aopForRemat 392
+                      01119 ;;      418: rname _ADCON1bits, val 0, const = 0
+                      01120 ;; ***  genNearPointerSet  6521
+                      01121 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      01122 ;;      _ADCON1bits
+                      01123 ;;      line = 6523 result AOP_PCODE=_ADCON1bits, size=2, left -=-, size=0, right AOP_LIT=0x00, size=1
+                      01124 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6249:genPackBits *{*
+                      01125 ;; ***  genPackBits  6250
+                      01126 ;;      833: aopGet AOP_PCODE type PO_IMMEDIATE
+                      01127 ;;      _ADCON1bits
+                      01128 ;; >>> /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6275:genPackBits
+00E6   10??           01129         BCF     _ADCON1bits,0
+                      01130 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      01131 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2760:genLabel *{*
+                      01132 ;; ***  genLabel  2763
+                      01133 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2316:resultRemat *{*
+                      01134 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:2528:genEndFunction *{*
+                      01135 ;; ***  genEndFunction  2530
+00E7   0008           01136         RETURN  
+                      01137 ; exit point of _ADC_Init
+                      01138 ;;; /home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:7426:genpic14Code *{*
+                      01139 
+                      01140 
+                      01141 ;       code size estimation:
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 23
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      01142 ;         150+   41 =   191 instructions (  464 byte)
+                      01143 
+                      01144         end
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 24
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADCS2                             00000006
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRGH                              00000002
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2                             0000001B
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHS0                              00000003
+CHS1                              00000004
+CHS2                              00000005
+CIS                               00000003
+CKE                               00000006
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 25
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CKP                               00000004
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON                             0000009C
+CMIE                              00000006
+CMIF                              00000006
+CREN                              00000004
+CSRC                              00000007
+CVR0                              00000000
+CVR1                              00000001
+CVR2                              00000002
+CVR3                              00000003
+CVRCON                            0000009D
+CVREN                             00000007
+CVROE                             00000006
+CVRR                              00000005
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+D_A                               00000005
+D_NOT_A                           00000005
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+GCEN                              00000007
+GIE                               00000007
+GO                                00000002
+GO_DONE                           00000002
+GO_NOT_DONE                       00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+IBF                               00000007
+IBOV                              00000005
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 26
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000002
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OBF                               00000006
+OERR                              00000001
+OPTION_REG                        00000081
+P                                 00000004
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSAVE                             00000000
+PSPIE                             00000007
+PSPIF                             00000007
+PSPMODE                           00000004
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 27
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+READ_WRITE                        00000002
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SEN                               00000000
+SMP                               00000007
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+SSAVE                             00000000
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 28
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+STK00                             00000000
+STK01                             00000000
+STK02                             00000000
+STK03                             00000000
+STK04                             00000000
+STK05                             00000000
+STK06                             00000000
+STK07                             00000000
+STK08                             00000000
+STK09                             00000000
+STK10                             00000000
+STK11                             00000000
+STK12                             00000000
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 29
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000088
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRMT                              00000001
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+W                                 00000000
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 30
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+WCOL                              00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+WSAVE                             00000000
+Z                                 00000002
+_00001_DS_                        00000010
+_00002_DS_                        00000015
+_00003_DS_                        00000025
+_00004_DS_                        0000002A
+_00005_DS_                        00000038
+_00006_DS_                        0000003D
+_00007_DS_                        00000049
+_00008_DS_                        0000004E
+_00009_DS_                        0000005B
+_00010_DS_                        000000B8
+_00011_DS_                        000000BD
+_00012_DS_                        000000CB
+_00013_DS_                        000000D0
+_00014_DS_                        000000DC
+_00015_DS_                        000000E1
+_00109_DS_                        00000051
+_00114_DS_                        0000007A
+_00115_DS_                        00000099
+_ADCON0                           00000000
+_ADCON0bits                       00000000
+_ADCON1                           00000000
+_ADCON1bits                       00000000
+_ADC_Convert                      00000000
+_ADC_Init                         000000A2
+_ADRESH                           00000000
+_ADRESL                           00000000
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CCP1CON                          00000000
+_CCP1CONbits                      00000000
+_CCP2CON                          00000000
+_CCP2CONbits                      00000000
+_CCPR1                            00000000
+_CCPR1H                           00000000
+_CCPR1L                           00000000
+_CCPR2                            00000000
+_CCPR2H                           00000000
+_CCPR2L                           00000000
+_CMCON                            00000000
+_CMCONbits                        00000000
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_ALL                           00001FFF
+_CP_OFF                           00003FFF
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 31
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_CP_ON                            00001FFF
+_CVRCON                           00000000
+_CVRCONbits                       00000000
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         000037FF
+_DEVID1                           00002006
+_EEADR                            00000000
+_EEADRH                           00000000
+_EECON1                           00000000
+_EECON1bits                       00000000
+_EECON2                           00000000
+_EEDATA                           00000000
+_EEDATH                           00000000
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_FSR                              00000000
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_INDF                             00000000
+_INTCON                           00000000
+_INTCONbits                       00000000
+_LP_OSC                           00003FFC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_OPTION_REG                       00000000
+_OPTION_REGbits                   00000000
+_PCL                              00000000
+_PCLATH                           00000000
+_PCON                             00000000
+_PCONbits                         00000000
+_PIE1                             00000000
+_PIE1bits                         00000000
+_PIE2                             00000000
+_PIE2bits                         00000000
+_PIR1                             00000000
+_PIR1bits                         00000000
+_PIR2                             00000000
+_PIR2bits                         00000000
+_PORTA                            00000000
+_PORTAbits                        00000000
+_PORTB                            00000000
+_PORTBbits                        00000000
+_PORTC                            00000000
+_PORTCbits                        00000000
+_PORTD                            00000000
+_PORTDbits                        00000000
+_PORTE                            00000000
+_PORTEbits                        00000000
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 32
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_PR2                              00000000
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RCREG                            00000000
+_RCSTA                            00000000
+_RCSTAbits                        00000000
+_RC_OSC                           00003FFF
+_SPBRG                            00000000
+_SSPADD                           00000000
+_SSPBUF                           00000000
+_SSPCON                           00000000
+_SSPCON2                          00000000
+_SSPCON2bits                      00000000
+_SSPCONbits                       00000000
+_SSPSTAT                          00000000
+_SSPSTATbits                      00000000
+_STATUS                           00000000
+_STATUSbits                       00000000
+_T1CON                            00000000
+_T1CONbits                        00000000
+_T2CON                            00000000
+_T2CONbits                        00000000
+_TMR0                             00000000
+_TMR1                             00000000
+_TMR1H                            00000000
+_TMR1L                            00000000
+_TMR2                             00000000
+_TRISA                            00000000
+_TRISAbits                        00000000
+_TRISB                            00000000
+_TRISBbits                        00000000
+_TRISC                            00000000
+_TRISCbits                        00000000
+_TRISD                            00000000
+_TRISDbits                        00000000
+_TRISE                            00000000
+_TRISEbits                        00000000
+_TXREG                            00000000
+_TXSTA                            00000000
+_TXSTAbits                        00000000
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_WRT_1FOURTH                      00003BFF
+_WRT_256                          00003DFF
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FFD
+__16F877A                         00000001
+__CODE_END                        00001FFF
+__CODE_START                      00000000
+__COMMON_RAM_END                  0000007F
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Debug\ADC   8-18-2018  15:23:24         PAGE 33
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__COMMON_RAM_START                00000070
+__EEPROM_END                      000021FF
+__EEPROM_START                    00002100
+__VECTOR_INT                      00000004
+__VECTOR_RESET                    00000000
+r0x1000                           00000003
+r0x1001                           00000004
+r0x1002                           00000005
+r0x1003                           00000006
+r0x1004                           00000007
+r0x1005                           00000008
+r0x1008                           00000000
+r0x1009                           00000001
+r0x100A                           00000002
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

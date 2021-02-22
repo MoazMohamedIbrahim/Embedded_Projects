@@ -1,0 +1,118 @@
+# depslib dependency file v1.0
+1499880364 source:d:\amr\work\trainining material\device drivers\labs\instructor\digitalclock\display.c
+	"Main.h"
+	"SSD.h"
+	"Timer.h"
+	"Time.h"
+	"Display.h"
+
+1499883419 d:\amr\work\trainining material\device drivers\labs\instructor\digitalclock\main.h
+	<pic16f877a.h>
+
+1499893746 d:\amr\work\trainining material\device drivers\labs\instructor\digitalclock\ssd.h
+	"Main.h"
+	"Port.h"
+
+1499879217 d:\amr\work\trainining material\device drivers\labs\instructor\digitalclock\port.h
+	"Main.h"
+
+1499882210 d:\amr\work\trainining material\device drivers\labs\instructor\digitalclock\timer.h
+	"Main.h"
+
+1499889823 d:\amr\work\trainining material\device drivers\labs\instructor\digitalclock\time.h
+	"Main.h"
+
+1499466231 d:\amr\work\trainining material\device drivers\labs\instructor\digitalclock\display.h
+
+1499880405 source:d:\amr\work\trainining material\device drivers\labs\instructor\digitalclock\ssd.c
+	"Main.h"
+	"Port.h"
+	"Timer.h"
+	"SSD.h"
+
+1499526263 source:d:\amr\work\trainining material\device drivers\labs\instructor\digitalclock\sw.c
+	"Main.h"
+	"Port.h"
+	"Timer.h"
+	"SW.h"
+
+1499460124 d:\amr\work\trainining material\device drivers\labs\instructor\digitalclock\sw.h
+
+1499882053 source:d:\amr\work\trainining material\device drivers\labs\instructor\digitalclock\time.c
+	"Main.h"
+	"SW.h"
+	"Timer.h"
+	"Time.h"
+
+1499882157 source:d:\amr\work\trainining material\device drivers\labs\instructor\digitalclock\timer.c
+	"Main.h"
+	"Timer.h"
+	"SW.h"
+	"Time.h"
+	"Display.h"
+	"SSD.h"
+
+1499893516 source:d:\amr\work\trainining material\device drivers\labs\instructor\digitalclock\digitalclock.c
+	"Main.h"
+	"SW.h"
+	"Timer.h"
+	"Display.h"
+	"Time.h"
+	"SSD.h"
+
+1530282649 source:c:\users\amr ali\desktop\embedded boot camp\device drivers\labs\instructor\digitalclock\digitalclock.c
+	"Main.h"
+	"SW.h"
+	"Timer.h"
+	"Display.h"
+	"Time.h"
+	"SSD.h"
+
+1531140259 c:\users\amr ali\desktop\embedded boot camp\device drivers\labs\instructor\digitalclock\main.h
+	<pic16f877a.h>
+
+1499460124 c:\users\amr ali\desktop\embedded boot camp\device drivers\labs\instructor\digitalclock\sw.h
+
+1500311571 c:\users\amr ali\desktop\embedded boot camp\device drivers\labs\instructor\digitalclock\timer.h
+	"Main.h"
+
+1499466231 c:\users\amr ali\desktop\embedded boot camp\device drivers\labs\instructor\digitalclock\display.h
+
+1499889823 c:\users\amr ali\desktop\embedded boot camp\device drivers\labs\instructor\digitalclock\time.h
+	"Main.h"
+
+1531141316 c:\users\amr ali\desktop\embedded boot camp\device drivers\labs\instructor\digitalclock\ssd.h
+	"Main.h"
+	"Port.h"
+
+1531140306 c:\users\amr ali\desktop\embedded boot camp\device drivers\labs\instructor\digitalclock\port.h
+	"Main.h"
+
+1499895345 source:c:\users\amr ali\desktop\embedded boot camp\device drivers\labs\instructor\digitalclock\display.c
+	"Main.h"
+	"SSD.h"
+	"Timer.h"
+	"Time.h"
+	"Display.h"
+	"SW.h"
+
+1530369881 source:c:\users\amr ali\desktop\embedded boot camp\device drivers\labs\instructor\digitalclock\ssd.c
+	"Main.h"
+	"Port.h"
+	"Timer.h"
+	"SSD.h"
+
+1502980225 source:c:\users\amr ali\desktop\embedded boot camp\device drivers\labs\instructor\digitalclock\time.c
+	"Main.h"
+	"SW.h"
+	"Timer.h"
+	"Time.h"
+
+1530783544 source:c:\users\amr ali\desktop\embedded boot camp\device drivers\labs\instructor\digitalclock\timer.c
+	"Main.h"
+	"Timer.h"
+	"SW.h"
+	"Time.h"
+	"Display.h"
+	"SSD.h"
+
